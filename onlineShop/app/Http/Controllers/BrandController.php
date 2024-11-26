@@ -10,7 +10,9 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('keyword', '');
-        $brands = Brand::where('brand_name', 'like', '%'.$keyword.'%')->orderByDesc('brand_name')->paginate(10);
+        $brands = Brand::where('brand_name', 'like', '%'.$keyword.'%')
+                        ->orderByDesc('brand_name')
+                        ->paginate(10);
         // return response()->json(['categories$categories' => $categories]); tanpa orm
         return response()->json($brands);
     }

@@ -73,9 +73,9 @@ class ProductController extends Controller
         }
 
         if($brandName){
-            $query->join('categories', 'products.category_id', '=', 'categories.id')
-            ->select('products.*', 'categories.category_name as category_name')
-            ->where('categories.category_name', 'like', "%{$brandName}%");
+            $query->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->select('products.*', 'brands.brand_name as brand_name')
+            ->where('brands.brand_name', 'like', "%{$brandName}%");
         }
 
         $products = $query->orderBy('name')->paginate(10);
@@ -88,7 +88,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        Product::create($request->all()); // Ini yang penting sebenernya
         return response()->json(['message' => 'Produk berhasil disimpan'], 201);
         $request->validate([
             'name' => 'required|string|max:50',
